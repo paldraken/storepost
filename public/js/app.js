@@ -60,9 +60,10 @@
         if(data.length > 0) {
           angular.forEach(data, function(item) {
             $scope.notifyers.push({
-              image_uri: item.forepost_id.image_uri,
-              user: item.user_id.instagram_name,
-              create_at: new Date(item.create_at)
+              image_uri: item.image_uri,
+              user: item.instagram_name,
+              create_at: new Date(item.create_at),
+              confirm: item.confirm
             });
           });
         }

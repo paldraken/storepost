@@ -4,6 +4,7 @@ var Forepost = require('../models/index.js').Forepost;
 var User = require('../models/index.js').User;
 var Reposted = require('../models/index.js').Reposted;
 var notify = require('../lib/gcm.js').Notify;
+var _ = require('underscore');
 
 var saveNotify = require('../lib/save_notify.js').SaveNotify;
 
@@ -52,7 +53,16 @@ router.post("/notify", function(req, res) {
 router.get('/notify', function(req, res) {
   Reposted.find({}).populate('user_id').populate('forepost_id').exec(function(err, reposts) {
     if(err) res.status(500).json(err);
-    res.status(200).json(reposts);
+    var result = [];
+    _.each(reposts, function(item) {
+      result.push({
+        image_uri: item.forepost_id.image_uri,
+        instagram_name: item.user_id.instagram_name,
+        create_at: item.create_at,
+        confirm: item.confirm
+      })
+    });
+    res.status(200).json(result);
   });
 });
 

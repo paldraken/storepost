@@ -22,6 +22,15 @@ router.get('/list', function(req, res) {
   });
 });
 
+router.get('/list/:id', function(req, res) {
+  var id = req.params.id;
+  Forepost.findOne({_id: id}, function(err, forepost) {
+    if (err) res.status(404).json(err);
+    res.status(200).json(forepost);
+  })
+});
+
+
 router.get('/remove/:id', function(req, res) {
   var id = req.params.id;
   Forepost.find({_id: id}).remove(function(err) {
@@ -33,7 +42,7 @@ router.post('/forepost', function(req, res) {
   var forepost = new Forepost(req.body);
   forepost.save(function(err) {
     if(err) res.status(500).send('Server error');
-    notify(function() {
+    notify(forepost, function() {
       console.log("notify END");
     });
     res.status(200).send(forepost._id);

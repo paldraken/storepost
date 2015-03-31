@@ -39,6 +39,7 @@
         success(function(data, status, headers, config) {
           $scope.newPost = "";
           $scope.text = "";
+          $scope.hint = "";
           $scope.price = 0;
           $scope.loadForeposts();
         }).

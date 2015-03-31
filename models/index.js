@@ -9,6 +9,7 @@ var userSchema = {
 var forepostSchema = {
   image_uri: String,
   text: String,
+  hint: String,
   price: Number,
   create_at: {
     type: Date, default: Date.now

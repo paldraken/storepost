@@ -64,12 +64,16 @@ router.get('/notify', function(req, res) {
     if(err) res.status(500).json(err);
     var result = [];
     _.each(reposts, function(item) {
-      result.push({
-        image_uri: item.forepost_id.image_uri,
-        instagram_name: item.user_id.instagram_name,
-        create_at: item.create_at,
-        confirm: item.confirm
-      })
+
+      if(item.forepost_id && item.user_id) {
+        result.push({
+          image_uri: item.forepost_id.image_uri,
+          instagram_name: item.user_id.instagram_name,
+          create_at: item.create_at,
+          confirm: item.confirm
+        })
+      }
+
     });
     res.status(200).json(result);
   });
